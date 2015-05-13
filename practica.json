@@ -1,0 +1,48 @@
+{
+
+    "ciudades": [
+        {
+            "nombre": "Madrid",
+	        "latitud": 40.4168,
+            "longitud": -3.7038
+        },
+         {
+            "nombre": "Buenos Aires",
+	        "latitud": "45",
+            "longitud": "-3"
+        },
+        {
+            "nombre": "Sydney",
+	        "latitud": "67",
+            "longitud": "-3"
+        },
+		 {
+            "nombre": "Oakland",
+	        "latitud": "55",
+            "longitud": "-3"
+        },
+		 {
+            "nombre": "Tokio",
+	        "latitud": "90",
+            "longitud": "-3"
+        }
+    ],
+    "paises": [
+        {
+            "nombre": "Arda Turan",
+	        "latitud": "55",
+            "longitud": "-3"
+        },
+        {
+            "nombre": "Djokovic",
+            "latitud": "43",
+            "longitud": "-3.656"
+        },
+        {
+            "nombre": "Fernando Torres",
+            "latitud": "40",
+            "longitud": "-3"
+        }
+    ]
+}
+
