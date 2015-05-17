@@ -1,0 +1,61 @@
+{
+	"type": "FeatureCollection",
+	"features": 
+	[
+        {
+			"geometry": {
+	                    "type": "Point",
+	                    "coordinates": [41.8902, 12.49223]
+			},
+			"type": "Feature",
+			"properties": {
+	                    "Name": "Coliseum"
+			},
+			"id": 1
+        },
+        {
+			"geometry": {
+	                    "type": "Point",
+	                    "coordinates": [40.689,-74.044]
+			},
+			"type": "Feature",
+			"properties": {
+	                    "Name": "Statue of Liberty"
+			},
+			"id": 2
+        },
+        {
+			"geometry": {
+	                    "type": "Point",
+	                    "coordinates": [48.8583,2.294]
+			},
+			"type": "Feature",
+			"properties": {
+	                    "Name": "Torre Eiffel"
+			},
+			"id": 3
+        },
+        {
+			"geometry": {
+	                    "type": "Point",
+	                    "coordinates": [ 41.403, 2.174]
+			},
+			"type": "Feature",
+			"properties": {
+	                    "Name": "Sagrada Familia"
+			},
+			"id": 4
+        },
+        {
+			"geometry": {
+	                    "type": "Point",
+	                    "coordinates": [-22.9567,-43.2102]
+			},
+			"type": "Feature",
+			"properties": {
+	                    "Name": "Cristo Redentor"
+			},
+			"id": 5
+        }
+	]
+}

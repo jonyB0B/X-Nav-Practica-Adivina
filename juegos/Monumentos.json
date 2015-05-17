@@ -1,0 +1,94 @@
+{
+	"type": "FeatureCollection",
+	"features": 
+	[
+        {
+			"geometry": {
+	                    "type": "Point",
+	                    "coordinates": [41.89021, 12.492230999999947]
+			},
+			"type": "Feature",
+			"properties": {
+	                    "Name": "Coliseum"
+			},
+			"id": 1
+        },
+        {
+			"geometry": {
+	                    "type": "Point",
+	                    "coordinates": [40.431908,116.57037500000001]
+			},
+			"type": "Feature",
+			"properties": {
+	                    "Name": "Muralla China"
+			},
+			"id": 2
+        },
+        {
+			"geometry": {
+	                    "type": "Point",
+	                    "coordinates": [48.858333,2.294167]
+			},
+			"type": "Feature",
+			"properties": {
+	                    "Name": "Torre Eiffel"
+			},
+			"id": 3
+        },
+        {
+			"geometry": {
+	                    "type": "Point",
+	                    "coordinates": [ 38.8992926, -3.051848699999937]
+			},
+			"type": "Feature",
+			"properties": {
+	                    "Name": "Alhambra Granada"
+			},
+			"id": 4
+        },
+		{
+			"geometry": {
+	                    "type": "Point",
+	                    "coordinates": [ 27.175015,78.04215499999998]
+			},
+			"type": "Feature",
+			"properties": {
+	                    "Name": "Taj Mahal "
+			},
+			"id": 5
+        },
+		{
+			"geometry": {
+	                    "type": "Point",
+	                    "coordinates": [ 41.403611, 2.174444]
+			},
+			"type": "Feature",
+			"properties": {
+	                    "Name": "Sagrada Familia"
+			},
+			"id": 6
+        },
+		{
+			"geometry": {
+	                    "type": "Point",
+	                    "coordinates": [ 30.0130557, 31.2088526]
+			},
+			"type": "Feature",
+			"properties": {
+	                    "Name": "Guiza"
+			},
+			"id": 7
+        },
+        {
+			"geometry": {
+	                    "type": "Point",
+	                    "coordinates": [-22.951667,-43.210278]
+			},
+			"type": "Feature",
+			"properties": {
+	                    "Name": "Cristo Redentor"
+			},
+			"id": 8
+        }
+	]
+}

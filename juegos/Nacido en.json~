@@ -1,0 +1,94 @@
+{
+	"type": "FeatureCollection",
+	"features": 
+	[
+        {
+			"geometry": {
+	                    "type": "Point",
+	                    "coordinates": [41.00527, 28.97695]
+			},
+			"type": "Feature",
+			"properties": {
+	                    "Name": "Arda Turan"
+			},
+			"id": 1
+        },
+        {
+			"geometry": {
+	                    "type": "Point",
+	                    "coordinates": [ 44.82055,20.46222]
+			},
+			"type": "Feature",
+			"properties": {
+	                    "Name": "Djokovic"
+			},
+			"id": 2
+        },
+        {
+			"geometry": {
+	                    "type": "Point",
+	                    "coordinates": [34.020,-97.957535]
+			},
+			"type": "Feature",
+			"properties": {
+	                    "Name": "Chuck Norris"
+			},
+			"id": 3
+        },
+        {
+			"geometry": {
+	                    "type": "Point",
+	                    "coordinates": [18.10958100,-77.2975080]
+			},
+			"type": "Feature",
+			"properties": {
+	                    "Name": "Usain Bolt"
+			},
+			"id": 4
+        },
+        {
+			"geometry": {
+	                    "type": "Point",
+	                    "coordinates": [37.7749295, -122.419415]
+			},
+			"type": "Feature",
+			"properties": {
+	                    "Name": "Bruce Lee"
+			},
+			"id": 5
+        },
+		{
+			"geometry": {
+	                    "type": "Point",
+	                    "coordinates": [42.9633599, -85.66808630000003]
+			},
+			"type": "Feature",
+			"properties": {
+	                    "Name": "Floyd Mayweather"
+			},
+			"id": 6
+        },
+		{
+			"geometry": {
+	                    "type": "Point",
+	                    "coordinates": [40.6781784, -73.9441579]
+			},
+			"type": "Feature",
+			"properties": {
+	                    "Name": "Michael Jordan"
+			},
+			"id": 7
+        },
+		{
+			"geometry": {
+	                    "type": "Point",
+	                    "coordinates": [39.1031182, -84.51201960000003]
+			},
+			"type": "Feature",
+			"properties": {
+	                    "Name": "Steven Spielberg
+			},
+			"id": 8
+        }
+	]
+}
