@@ -12,7 +12,7 @@ body {
         -webkit-background-size: cover;
         -o-background-size: cover;
 }
-}
+
 #willy{
 	background: url(http://fc07.deviantart.net/fs71/f/2012/163/8/d/willy_fog_by_yukimiyasawa-d53a8im.png);
 }
@@ -24,7 +24,38 @@ body {
     font-size: 20px;
 }
 
+#siguiente{
+    margin-left:20px;
+    width:130px;
+    height:70px;
+    font-size: 20px;
+}
+
+#NEWGAME{
+    margin-left:450px;
+	margin-top:20px;
+    width:500px;
+    height:400px;
+    font-size: 80px;
+	
+}
+
+#startGame{
+    margin-left:40px;
+	margin-top:10px;
+    width: 400px;
+    height:100px;
+    font-size: 20px;
+	
+}
+
+
 #puntuacion{
+    font-size:25px;
+    text-align: center;
+}
+	
+#distancia{
     font-size:25px;
     text-align: center;
 }
@@ -56,6 +87,7 @@ p#History{
 div#search {
 	background-color: white;
 	position: absolute;
+	margin-left: 20px;
 	bottom: 40px;
 	left: 40px;
 	width: auto;

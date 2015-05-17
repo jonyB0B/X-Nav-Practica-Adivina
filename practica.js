@@ -1,5 +1,12 @@
 var map = "";
+var nestados = 0;
+var index = 0;
+var nhistory = 0;
+$("#siguiente").hide();
+$("#aceptar").hide();
+$("#NEWGAME").hide();
 $(document).ready(function() {
+	
 	$("div#search button").click(addr_search);//BUSQUEDA
 
 	var clickMap = "";
@@ -9,35 +16,83 @@ $(document).ready(function() {
 		map = L.map("map").setView([40,0], 2);
 	    L.tileLayer(' http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(map);
 	}
-	
+
 	//LECTURA DE DOCUMENTOS JSON
-	var citys =Array();
-	var Latitudes = Array();
-	var Longitudes = Array();
+	
+	var juego = {nombres : Array(), coord : Array()}
+	var lastgame;
+	var game ="";
  
-	$.ajax({url:"practica.json",
+	$(".game").click(function(){
+		$("#startGame").hide();
+		$("#NEWGAME").show();
+		lastgame = game
+		game = $(this).html();
+		//$("#gameTipe").append(game);
+		juego.nombres = [];
+		juego.coord = [];
+		$.ajax({url:"juegos/"+game+".json",
 			dataType:'json',
 			async:false,
 			success:function(data) {
-				dat = data;
-				Ciudades(dat);
-				//Monumentos();
-				//Paises();
+				data.features.forEach(function(el,i){
+					juego.nombres[i] = el.properties.Name;
+					juego.coord[i] = el.geometry.coordinates;
+			});
 			}
-	});
+		});
+		
+	})
 
+	//FUNCION RANDOM PARA EL JSON asigno las variables leidas coordenadas y nombres
+	function RdnNext(){
+		it=Math.floor(Math.random()*7)
+		console.log(it);
+		Lat = juego.coord[it][0];
+		Long =juego.coord[it][1];
+		tag = juego.nombres[it];
+		success = L.latLng(Lat,Long)
+	}
 	//Coordenadas del lugar donde se situan las fotos y distancia entre los dos lugares
 	//Variables Latitud y longitud
-	var Lat = Latitudes[0];
-	var Long =Longitudes[0];
-    var success = L.latLng(Lat,Long);
-    var dist = 0;
+	var Lat = 0;
+	var Long =0;
+    var success = 0;
+    var dist = $("#badgedist");
+	var tag = 0;
 
-    //Numero de lugar en el juego
-    var index;
-	var tag = "Atletico de Madrid";
+	
+	//funcion inicio del juego
+	function Inicio(){
+		RdnNext();
+		ocultarSiguiente();
+		fotosflikr(tag);
+		dibujar();
+		markerInit();
+		puntuacion = 0;
+		dist = 0;
+		vpunt.html(puntuacion)
+		vdist.html(dist)
+	}
+	//INICIO DEL JUEGO OCULTO Botones y cargo al dar click
+	 $("#NEWGAME").click(function(){
+		$("#NEWGAME").hide();
+		if(nhistory==0){
+			//history.pushState(null,null,location.href+game);
+			Inicio();
+			nhistory++;
+			console.log("nhist = o");
+		}else{
+			Stop();
+			map.remove();
+			Inicio();
+			console.log(juego.nombres[2])
+			historyAdd();
+			console.log("lalalala")
+		}
+	})
 
-	//Variable para la dificulad
+	//DIFICULTADES
 	var max_fotos = 10;
 	var time = 5000;
 	var Interval =""; 
@@ -48,48 +103,55 @@ $(document).ready(function() {
 
 	}
 	facil.on('click', function() {
+		ocultarSiguiente();
+		$("#facil").hide();
+		$("#medio").show();
+		$("#dificil").show();
         time = 5000;
 		Stop();
 		map.remove();
-		dibujar();
-		markerInit();
-		fotosflikr(tag);
+		Inicio();
 	});
 	medio.on('click', function() {
+		ocultarSiguiente();
+		$("#medio").hide();
+		$("#facil").show();
+		$("#dificil").show();
         time = 3000;
 		max_fotos = 15;
 		Stop();
 		map.remove();
-		dibujar();
-		markerInit();
-		fotosflikr("pazo");
+		Inicio();
 	});
 	dificil.on('click', function() {
+		ocultarSiguiente();
+		$("#favil").show();
+		$("#medio").show();
+        $("#dificil").hide();
         time = 500;
 		max_fotos = 20;
 		Stop();
 		map.remove();
-		dibujar();
-		markerInit();
-		fotosflikr(tag);
+		Inicio();
 	});
-    //Variable de puntuacion del juego
+    //Variables de puntuacion  y distancia del juego
     var puntuacion = 0;
     var fotosvistas = 0;
-    var vpunt = $("#badge");
-    vpunt.html(puntuacion)
-
+	var vpunt = $("#badge");
+	var dist = 0;
+	var vdist = $("#vdist");
+	
     //Llama a el feed de flickr para una tag dada devolviendo un JSON
     function fotosflikr(tags){
        
         $.getJSON("https://api.flickr.com/services/feeds/photos_public.gne?&tags="+tags+"&tagmode=any&format=json&jsoncallback=?",
             function(data){
                 data = data.items.splice(0,max_fotos)
-               	i= 0;
-				$("#img").attr("src",data[i].media.m);
-				i++;//incremento 
+				$("#img").attr("src",data[index].media.m);
+				index++;//incremento 
                	Interval = setInterval(function(){
-                    $("#img").attr("src",data[i++ % max_fotos].media.m)
+                    $("#img").attr("src",data[index++ % max_fotos].media.m)
+					fotosvistas++;
                },time);
         });
     }
@@ -97,17 +159,11 @@ $(document).ready(function() {
 	function Stop() {
     	clearInterval(Interval);
 	} 
-	//funcion inicio del juego
-	function Inicio(){
-		fotosflikr(tag);
-		dibujar();
-		markerInit();
-	}
-	Inicio();
 
 	//funcion para el marcador propio
 	function markerInit(){
-		successP= L.marker([Lat,Long],{opacity:0});
+		
+		successP= L.marker([Lat,Long],{opacity:0});//inicializo a 0,0
 		successP.addTo(map);
 		clickMap = L.marker([0,0],{opacity:0});
 		clickMap.addTo(map);
@@ -120,60 +176,101 @@ $(document).ready(function() {
 
     //Calcula la distancia en km desde el marker a la poicion correcta
     $("#aceptar").click(function(){
-        dist = success.distanceTo(clickMap.getLatLng())/1000
-        calculapuntuacion();
-		successP.setOpacity(1);//muestro el marcador buscado
-		var latlngs = Array();//Linea entre marcadores
-		latlngs.push(clickMap.getLatLng());
+        dist = success.distanceTo(clickMap.getLatLng())/1000 //paso a kilometros
+		console.log(dist);
+		dist = Math.floor(dist);
+   	
+		if(clickMap.getLatLng().lat !=0){
+			calculapuntuacion();
+			successP.setOpacity(1);//muestro el marcador buscado
+			var latlngs = Array();//Linea entre marcadores
+			latlngs.push(clickMap.getLatLng());
+			latlngs.push(successP.getLatLng());
+			var polyline = L.polyline(latlngs, {color: 'red'}).addTo(map);
+		}
+    })
 
-		
-		latlngs.push(successP.getLatLng());
-		var polyline = L.polyline(latlngs, {color: 'red'}).addTo(map);
-    })
-	//Numero de fotos vistas
-    $("#carousel").on("slid.bs.carousel",function(){
-        fotosvistas++;
-    })
+	//CALculo DE PUNTUACION
 
     function calculapuntuacion(){
 		fotos = 1;
 		if (fotosvistas > 2){
 			fotosvistas = fotos;		
 		}
-		puntuacion += Math.floor(1000000/(dist*fotos));
+		puntuacion += Math.floor(100000/(dist*fotos));
         vpunt.html(puntuacion)
+		vdist.html(dist+" Km")
+		mostrarSiguiente();
     }
 
-	
-	function Ciudades(dat){
-		for (var i = 0; i < dat.ciudades.length; i++) {		
-			citys.push(dat.ciudades[i].nombre);
-			Latitudes.push(dat.ciudades[i].latitud);
-			Longitudes.push(dat.ciudades[i].longitud); 
-		}
+
+	//MOSTRAR Y OCULTAR BOTONES
+	function mostrarSiguiente(){
+		$("#siguiente").show();
+		$("#aceptar").hide();
+	}
+	function ocultarSiguiente(){
+		$("#siguiente").hide();
+		$("#aceptar").show();
 	}
 	
-	/*function Monumentos(dat){
-		for (var i = 0; i < dat.monumentos.length; i++) {		
-			citys.push(dat.ciudades[i].nombre);
-			Latitudes.push(dat.ciudades[i].latitud);
-			Longitudes.push(dat.ciudades[i].longitud); 
+	//FUNCION SIGUIENTE 
+	$("#siguiente").click(function(){
+		Stop();
+		map.remove();
+		historyAdd();
+		fotosvistas = 0;
+		index = 0;
+		Inicio();
+	})
+
+	function historyAdd(){
+		datos={fecha: new Date(),
+			nombre: tag,
+			punt:puntuacion,
+			game: game,
+			juego:juego,
+			it:it,
+			index: index,
+			success: success
+		}
+		
+		history.pushState(datos,"estado",location.href+game);
+		html= '<a id=his'+nhistory+' href="#" class="list-group-item his">'+datos.nombre+"Juego: "+datos.game+' Score: '+datos.punt+'</br> Hora: '+datos.fecha.getHours()+"h:"+datos.fecha.getMinutes()+"m:"+datos.fecha.getSeconds() +"s"+'</a>'
+		$("#historial").append(html);
+		nhistory++;
+	}
+
+	function historyGo(){
+		if(datos!=null){
+			game = datos.game;//Monumentos
+			juego = datos.juego;
+			success = datos.success;
+			console.log("evento cambio : "+datos.nombre);
+			Stop();
+			map.remove();
+			Inicio();
 		}
 	}
+	//Salta el evento cuando pulso en el historial 
+	window.onpopstate = function(event) {
 	
-	function Paises(dat){
-		for (var i = 0; i < dat.paises.length; i++) {		
-			citys.push(dat.paises[i].nombre);
-			Latitudes.push(dat.paises[i].latitud);
-			Longitudes.push(dat.paises[i].longitud); 
-		}
+		historyGo(event.state);
+	};
+
+
+	/*history.pushState(dat,"estado",location.href+game);
+		html= '<a id=his'+nhistory+' class="list-group-item his">'+"Juego: "+datos.juego+' Score: '+datos.punt+'</br> Hora: '+datos.fecha.getHours()+"h:"+datos.fecha.getMinutes()+"m:"+datos.fecha.getSeconds() +"s"+'</a>'
+		$("#historial").append(html);
+		nhistory++;
 	}*/
+
+	
 	
 });
-//ESTO ES EL FLICKR
+//ESTO ES EL BUCADOR DE OPCION EXTRA
 addr_search = function () {
     var inp = document.getElementById("addr");
-	//BUSCADOR
     $.getJSON('http://nominatim.openstreetmap.org/search?format=json&limit=5&q=' + inp.value, function(data) {
 
 		var items = [];
@@ -213,7 +310,4 @@ addr_search = function () {
 	}
 
 }
-
-
-
 
