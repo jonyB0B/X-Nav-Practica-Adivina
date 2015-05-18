@@ -241,6 +241,7 @@ $(document).ready(function() {
 		Inicio();
 	})
 
+	//AÑADE AL HISTORIAL
 	function historyAdd(){
 		datos={fecha: new Date(),
 			nombre: tag,
@@ -258,6 +259,7 @@ $(document).ready(function() {
 		nhistory++;
 	}
 
+	//CUANDO SE PINCHA EN EL HISTORIAL
 	function historyGo(){
 		if(datos!=null){
 			game = datos.game;//Monumentos
@@ -282,7 +284,13 @@ $(document).ready(function() {
 		nhistory++;
 	}*/
 
-	
+	$("#adivina").click(function(){
+		$("#siguiente").hide();
+		$("#aceptar").hide();
+		$("#NEWGAME").hide();
+		$("#img").hide();
+		$("#map").hide();
+	});
 	
 });
 //ESTO ES EL BUCADOR DE OPCION EXTRA
