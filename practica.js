@@ -2,9 +2,12 @@ var map = "";
 var nestados = 0;
 var index = 0;
 var nhistory = 0;
+var datos = null;
 $("#siguiente").hide();
 $("#aceptar").hide();
 $("#NEWGAME").hide();
+$("#img").hide();
+$("#map").hide();
 $(document).ready(function() {
 	
 	$("div#search button").click(addr_search);//BUSQUEDA
@@ -24,14 +27,21 @@ $(document).ready(function() {
 	var game ="";
  
 	$(".game").click(function(){
+		if (nhistory >1){
+			$("#img").hide();
+			$("#map").hide();
+		}
 		$("#startGame").hide();
+		$("#facil").hide();
 		$("#NEWGAME").show();
+		Stop();
+		index = 0;//reinicio el index por si cambio de juego jugando a otro
 		lastgame = game
 		game = $(this).html();
-		//$("#gameTipe").append(game);
+		$("#gameTipe").html(game);
 		juego.nombres = [];
 		juego.coord = [];
-		$.ajax({url:"juegos/"+game+".json",
+		$.ajax({url:"http://jonyB0B.github.io/X-Nav-Practica-Adivina/juegos/"+game+".json",
 			dataType:'json',
 			async:false,
 			success:function(data) {
@@ -77,18 +87,20 @@ $(document).ready(function() {
 	//INICIO DEL JUEGO OCULTO Botones y cargo al dar click
 	 $("#NEWGAME").click(function(){
 		$("#NEWGAME").hide();
+		$("#img").show();
+		$("#map").show();
 		if(nhistory==0){
 			//history.pushState(null,null,location.href+game);
 			Inicio();
 			nhistory++;
-			console.log("nhist = o");
+			console.log("nhist: "+nhistory);
 		}else{
 			Stop();
 			map.remove();
 			Inicio();
 			console.log(juego.nombres[2])
 			historyAdd();
-			console.log("lalalala")
+			console.log("nhist2: "+nhistory)
 		}
 	})
 
@@ -187,6 +199,9 @@ $(document).ready(function() {
 			latlngs.push(clickMap.getLatLng());
 			latlngs.push(successP.getLatLng());
 			var polyline = L.polyline(latlngs, {color: 'red'}).addTo(map);
+			$("#solucion").html("Solucion: " + tag);//muestro la solucion
+			$("#img").hide();
+			$("#solucion").show();
 		}
     })
 
@@ -218,6 +233,8 @@ $(document).ready(function() {
 	$("#siguiente").click(function(){
 		Stop();
 		map.remove();
+		$('#solucion').hide();
+		$("#img").show();
 		historyAdd();
 		fotosvistas = 0;
 		index = 0;
@@ -236,7 +253,7 @@ $(document).ready(function() {
 		}
 		
 		history.pushState(datos,"estado",location.href+game);
-		html= '<a id=his'+nhistory+' href="#" class="list-group-item his">'+datos.nombre+"Juego: "+datos.game+' Score: '+datos.punt+'</br> Hora: '+datos.fecha.getHours()+"h:"+datos.fecha.getMinutes()+"m:"+datos.fecha.getSeconds() +"s"+'</a>'
+		html= '<a id=his'+nhistory+' href="#" class="list-group-item his">'+" Juego: "+datos.game+' Score: '+datos.punt+'</br> Hora: '+datos.fecha.getHours()+"h:"+datos.fecha.getMinutes()+"m:"+datos.fecha.getSeconds() +"s"+'</a>'
 		$("#historial").append(html);
 		nhistory++;
 	}
