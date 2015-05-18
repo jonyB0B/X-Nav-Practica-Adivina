@@ -2,18 +2,12 @@ var map = "";
 var nestados = 0;
 var index = 0;
 var nhistory = 0;
-<<<<<<< HEAD
-$("#siguiente").hide();
-$("#aceptar").hide();
-$("#NEWGAME").hide();
-=======
 var datos = null;
 $("#siguiente").hide();
 $("#aceptar").hide();
 $("#NEWGAME").hide();
 $("#img").hide();
 $("#map").hide();
->>>>>>> master
 $(document).ready(function() {
 	
 	$("div#search button").click(addr_search);//BUSQUEDA
@@ -33,16 +27,6 @@ $(document).ready(function() {
 	var game ="";
  
 	$(".game").click(function(){
-<<<<<<< HEAD
-		$("#startGame").hide();
-		$("#NEWGAME").show();
-		lastgame = game
-		game = $(this).html();
-		//$("#gameTipe").append(game);
-		juego.nombres = [];
-		juego.coord = [];
-		$.ajax({url:"juegos/"+game+".json",
-=======
 		if (nhistory >1){
 			$("#img").hide();
 			$("#map").hide();
@@ -58,7 +42,6 @@ $(document).ready(function() {
 		juego.nombres = [];
 		juego.coord = [];
 		$.ajax({url:"http://jonyB0B.github.io/X-Nav-Practica-Adivina/juegos/"+game+".json",
->>>>>>> master
 			dataType:'json',
 			async:false,
 			success:function(data) {
@@ -104,31 +87,20 @@ $(document).ready(function() {
 	//INICIO DEL JUEGO OCULTO Botones y cargo al dar click
 	 $("#NEWGAME").click(function(){
 		$("#NEWGAME").hide();
-<<<<<<< HEAD
-=======
 		$("#img").show();
 		$("#map").show();
->>>>>>> master
 		if(nhistory==0){
 			//history.pushState(null,null,location.href+game);
 			Inicio();
 			nhistory++;
-<<<<<<< HEAD
-			console.log("nhist = o");
-=======
 			console.log("nhist: "+nhistory);
->>>>>>> master
 		}else{
 			Stop();
 			map.remove();
 			Inicio();
 			console.log(juego.nombres[2])
 			historyAdd();
-<<<<<<< HEAD
-			console.log("lalalala")
-=======
 			console.log("nhist2: "+nhistory)
->>>>>>> master
 		}
 	})
 
@@ -227,12 +199,9 @@ $(document).ready(function() {
 			latlngs.push(clickMap.getLatLng());
 			latlngs.push(successP.getLatLng());
 			var polyline = L.polyline(latlngs, {color: 'red'}).addTo(map);
-<<<<<<< HEAD
-=======
 			$("#solucion").html("Solucion: " + tag);//muestro la solucion
 			$("#img").hide();
 			$("#solucion").show();
->>>>>>> master
 		}
     })
 
@@ -264,11 +233,8 @@ $(document).ready(function() {
 	$("#siguiente").click(function(){
 		Stop();
 		map.remove();
-<<<<<<< HEAD
-=======
 		$('#solucion').hide();
 		$("#img").show();
->>>>>>> master
 		historyAdd();
 		fotosvistas = 0;
 		index = 0;
@@ -287,11 +253,7 @@ $(document).ready(function() {
 		}
 		
 		history.pushState(datos,"estado",location.href+game);
-<<<<<<< HEAD
-		html= '<a id=his'+nhistory+' href="#" class="list-group-item his">'+datos.nombre+"Juego: "+datos.game+' Score: '+datos.punt+'</br> Hora: '+datos.fecha.getHours()+"h:"+datos.fecha.getMinutes()+"m:"+datos.fecha.getSeconds() +"s"+'</a>'
-=======
 		html= '<a id=his'+nhistory+' href="#" class="list-group-item his">'+" Juego: "+datos.game+' Score: '+datos.punt+'</br> Hora: '+datos.fecha.getHours()+"h:"+datos.fecha.getMinutes()+"m:"+datos.fecha.getSeconds() +"s"+'</a>'
->>>>>>> master
 		$("#historial").append(html);
 		nhistory++;
 	}
