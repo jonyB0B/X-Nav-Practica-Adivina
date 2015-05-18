@@ -1,5 +1,9 @@
 body {
 	background: url(http://satsumaart.files.wordpress.com/2012/02/worldmapdrawing-1-png.jpg)no-repeat  fixed;
+<<<<<<< HEAD
+=======
+	
+>>>>>>> master
         background-size: cover;
         -moz-background-size: cover;
         -webkit-background-size: cover;
@@ -18,19 +22,39 @@ body {
 }
 
 #aceptar{
+<<<<<<< HEAD
     margin-left:20px;
     width:130px;
+=======
+    margin-left:40px;
+    width:150px;
+>>>>>>> master
     height:70px;
     font-size: 20px;
 }
 
 #siguiente{
     margin-left:20px;
+<<<<<<< HEAD
     width:130px;
+=======
+    width:150px;
+>>>>>>> master
     height:70px;
     font-size: 20px;
 }
 
+<<<<<<< HEAD
+=======
+#solucion{
+	margin-top:5px;
+    margin-left:50px;
+    width:100px;
+    height:100px;
+    font-size: 20px;
+}
+
+>>>>>>> master
 #NEWGAME{
     margin-left:450px;
 	margin-top:20px;
@@ -41,10 +65,17 @@ body {
 }
 
 #startGame{
+<<<<<<< HEAD
     margin-left:40px;
 	margin-top:10px;
     width: 400px;
     height:100px;
+=======
+    margin-left:380px;
+	margin-top:0px;
+    width: 420px;
+    height:80px;
+>>>>>>> master
     font-size: 20px;
 	
 }
