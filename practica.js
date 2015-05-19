@@ -3,11 +3,14 @@ var nestados = 0;
 var index = 0;
 var nhistory = 0;
 var datos = null;
+var histGame = 0;
+
 $("#siguiente").hide();
 $("#aceptar").hide();
 $("#NEWGAME").hide();
 $("#img").hide();
 $("#map").hide();
+
 $(document).ready(function() {
 	
 	$("div#search button").click(addr_search);//BUSQUEDA
@@ -89,6 +92,7 @@ $(document).ready(function() {
 		$("#NEWGAME").hide();
 		$("#img").show();
 		$("#map").show();
+		$("#adivina").html("SALIR");
 		if(nhistory==0){
 			//history.pushState(null,null,location.href+game);
 			Inicio();
@@ -137,7 +141,7 @@ $(document).ready(function() {
 	});
 	dificil.on('click', function() {
 		ocultarSiguiente();
-		$("#favil").show();
+		$("#facil").show();
 		$("#medio").show();
         $("#dificil").hide();
         time = 500;
@@ -244,52 +248,57 @@ $(document).ready(function() {
 	//AÑADE AL HISTORIAL
 	function historyAdd(){
 		datos={fecha: new Date(),
-			nombre: tag,
-			punt:puntuacion,
-			game: game,
-			juego:juego,
-			it:it,
-			index: index,
-			success: success
+			juego:juego,//Objeto juego
+			game: game,//Nombre del juego 
+			nombre: tag,//nombre de la solucion
+			punt:puntuacion,//puntuacion obtenida
+			it:it,//numero de foto en el json
+			index: index,//numero de fotos vistas
+			success: success//Coordenadas objetivo
 		}
 		
 		history.pushState(datos,"estado",location.href+game);
-		html= '<a id=his'+nhistory+' href="#" class="list-group-item his">'+" Juego: "+datos.game+' Score: '+datos.punt+'</br> Hora: '+datos.fecha.getHours()+"h:"+datos.fecha.getMinutes()+"m:"+datos.fecha.getSeconds() +"s"+'</a>'
+		html= '<a id='+datos.nombre+' href="javascript:historyGo('+histGame+')" class="list-group-item his">'+" Juego: "+datos.game+'</br>'+datos.nombre +'</br> Score: '+datos.punt+'</br> Hora: '+datos.fecha.getHours()+"h:"+datos.fecha.getMinutes()+"m:"+datos.fecha.getSeconds() +"s"+'</a>'
 		$("#historial").append(html);
 		nhistory++;
+		histGame++;
 	}
 
-	//CUANDO SE PINCHA EN EL HISTORIAL
-	function historyGo(){
+	/*//CUANDO SE PINCHA EN EL HISTORIAL
+	function updateHistory(dat){
 		if(datos!=null){
 			game = datos.game;//Monumentos
 			juego = datos.juego;
 			success = datos.success;
 			console.log("evento cambio : "+datos.nombre);
-			Stop();
-			map.remove();
-			Inicio();
+			index =0;
+			tag = datos.nombre[index];
+			index++;
 		}
 	}
 	//Salta el evento cuando pulso en el historial 
-	window.onpopstate = function(event) {
+	window.addEventListener('popstate', function(event) {
 	
-		historyGo(event.state);
-	};
+		if(event.state!=null){
+			
+		}
+	});*/
 
-
-	/*history.pushState(dat,"estado",location.href+game);
-		html= '<a id=his'+nhistory+' class="list-group-item his">'+"Juego: "+datos.juego+' Score: '+datos.punt+'</br> Hora: '+datos.fecha.getHours()+"h:"+datos.fecha.getMinutes()+"m:"+datos.fecha.getSeconds() +"s"+'</a>'
-		$("#historial").append(html);
-		nhistory++;
-	}*/
 
 	$("#adivina").click(function(){
+		$("#adivina").html("Adivina");
+		$("#startGame").show();
 		$("#siguiente").hide();
 		$("#aceptar").hide();
 		$("#NEWGAME").hide();
 		$("#img").hide();
 		$("#map").hide();
+		nestados = 0;
+		index = 0;
+		nhistory = 0;
+		datos = null;
+		Stop();
+		map.remove();
 	});
 	
 });
@@ -334,5 +343,13 @@ addr_search = function () {
     	}
 	}
 
+}
+
+
+function historyGo(buscada){
+	go = buscada - histGame;
+	console.log("ir a "+go);
+	histGame = go;
+	history.go(go);//No salta
 }
 
