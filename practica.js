@@ -123,41 +123,8 @@ $(document).ready(function() {
 	var facil = $("#facil");	
 	var medio = $("#medio");
 	var dificil = $("#dificil");
-	function dificultad(){
-
-	}
-	facil.on('click', function() {
-		ocultarSiguiente();
-		$("#facil").hide();
-		$("#medio").show();
-		$("#dificil").show();
-        time = 5000;
-		Stop();
-		map.remove();
-		Inicio();
-	});
-	medio.on('click', function() {
-		ocultarSiguiente();
-		$("#medio").hide();
-		$("#facil").show();
-		$("#dificil").show();
-        time = 3000;
-		max_fotos = 15;
-		Stop();
-		map.remove();
-		Inicio();
-	});
-	dificil.on('click', function() {
-		ocultarSiguiente();
-		$("#facil").show();
-		$("#medio").show();
-        $("#dificil").hide();
-        time = 500;
-		max_fotos = 20;
-		Stop();
-		map.remove();
-		Inicio();
-	});
+	
+	
     //Variables de puntuacion  y distancia del juego
     var puntuacion = 0;
     var fotosvistas = 0;
@@ -171,6 +138,7 @@ $(document).ready(function() {
         $.getJSON("https://api.flickr.com/services/feeds/photos_public.gne?&tags="+tags+"&tagmode=any&format=json&jsoncallback=?",
             function(data){
                 data = data.items.splice(0,max_fotos)
+				index = 0;
 				$("#img").attr("src",data[index].media.m);
 				index++;//incremento 
                	Interval = setInterval(function(){
@@ -285,10 +253,51 @@ $(document).ready(function() {
 			map.remove();
 			Inicio();
 			index++;
+		}else{
+			facil.on('click', function() {
+				ocultarSiguiente();
+				$("#facil").hide();
+				$("#medio").show();
+				$("#dificil").show();
+				fotosvistas = 0;
+				time = 5000;
+				index =0;
+				Stop();
+				map.remove();
+				Inicio();
+			});
+			medio.on('click', function() {
+				ocultarSiguiente();
+				$("#medio").hide();
+				$("#facil").show();
+				$("#dificil").show();
+				fotosvistas = 0;
+				index =0;
+				time = 3000;
+				max_fotos = 15;
+				Stop();
+				map.remove();
+				Inicio();
+			});
+			dificil.on('click', function() {
+				ocultarSiguiente();
+				$("#facil").show();
+				$("#medio").show();
+				$("#dificil").hide();
+				fotosvistas = 0;
+				index =0;
+				time = 500;
+				max_fotos = 20;
+				Stop();
+				map.remove();
+				Inicio();
+			});
+		
 		}
 	}
 	//Salta el evento cuando pulso en el historial 
 	window.addEventListener('popstate', function(event) {
+			console.log(event.state);
 			updateHistory(event.state);
 	});
 
