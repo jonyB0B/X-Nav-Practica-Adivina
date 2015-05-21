@@ -11,6 +11,15 @@ $("#NEWGAME").hide();
 $("#img").hide();
 $("#map").hide();
 
+
+
+function historyGo(buscada){
+	go = buscada - histGame;
+	console.log("ir a "+go);
+	histGame = go;
+	history.go(go);//No salta
+}
+
 $(document).ready(function() {
 	
 	$("div#search button").click(addr_search);//BUSQUEDA
@@ -33,6 +42,7 @@ $(document).ready(function() {
 		if (nhistory >1){
 			$("#img").hide();
 			$("#map").hide();
+			$("#facil").show();
 		}
 		$("#startGame").hide();
 		$("#facil").hide();
@@ -94,7 +104,6 @@ $(document).ready(function() {
 		$("#map").show();
 		$("#adivina").html("SALIR");
 		if(nhistory==0){
-			//history.pushState(null,null,location.href+game);
 			Inicio();
 			nhistory++;
 			console.log("nhist: "+nhistory);
@@ -102,8 +111,7 @@ $(document).ready(function() {
 			Stop();
 			map.remove();
 			Inicio();
-			console.log(juego.nombres[2])
-			historyAdd();
+			console.log(juego.nombres)
 			console.log("nhist2: "+nhistory)
 		}
 	})
@@ -256,7 +264,7 @@ $(document).ready(function() {
 			index: index,//numero de fotos vistas
 			success: success//Coordenadas objetivo
 		}
-		
+		console.log(datos.nombre)
 		history.pushState(datos,"estado",location.href+game);
 		html= '<a id='+datos.nombre+' href="javascript:historyGo('+histGame+')" class="list-group-item his">'+" Juego: "+datos.game+'</br>'+datos.nombre +'</br> Score: '+datos.punt+'</br> Hora: '+datos.fecha.getHours()+"h:"+datos.fecha.getMinutes()+"m:"+datos.fecha.getSeconds() +"s"+'</a>'
 		$("#historial").append(html);
@@ -264,25 +272,25 @@ $(document).ready(function() {
 		histGame++;
 	}
 
-	/*//CUANDO SE PINCHA EN EL HISTORIAL
+	//CUANDO SE PINCHA EN EL HISTORIAL
 	function updateHistory(dat){
-		if(datos!=null){
-			game = datos.game;//Monumentos
-			juego = datos.juego;
-			success = datos.success;
-			console.log("evento cambio : "+datos.nombre);
+		if(dat!=null){
+			game = dat.game;//Monumentos
+			juego = dat.juego;
+			success = dat.success;
+			console.log("evento cambio : "+juego.nombres);
 			index =0;
-			tag = datos.nombre[index];
+			tag = juego.nombres[index];
+			Stop();
+			map.remove();
+			Inicio();
 			index++;
 		}
 	}
 	//Salta el evento cuando pulso en el historial 
 	window.addEventListener('popstate', function(event) {
-	
-		if(event.state!=null){
-			
-		}
-	});*/
+			updateHistory(event.state);
+	});
 
 
 	$("#adivina").click(function(){
@@ -345,11 +353,4 @@ addr_search = function () {
 
 }
 
-
-function historyGo(buscada){
-	go = buscada - histGame;
-	console.log("ir a "+go);
-	histGame = go;
-	history.go(go);//No salta
-}
 
