@@ -21,10 +21,14 @@ Nombre de su cuenta en el laboratorio del alumno: jonnyy
 He implementado la parte obligatoria pedida.
 Explicando un poco el funcionamiento de la misma aunque el vídeo sirva como demo, para iniciar un juego hay que seleccionarlo en la parte superior y darle click al botón , la dificultad por defecto es la fácil , que puede cambiarse el cualquier momento y reiniciando con ello el monumento mostrado por otro aleatorio , en la pestaña del historial podemos ver nuestras partidas jugadas , tenemos un boton salir para cerrar el juego.
 Hablando de los juegos he implementado uno llamado "Nacido en" que consiste en adivinar la ciudad en la que nació el personaje famoso de las fotos.
+Por último si estamos dentro de un juego podemos seguir jugando a el mismo juego dandole al botón siguiente y monstrando otro monumento al azar de los pertenecientes a nuestro juego.
 
 **Lista de funcionalidades opcionales que se hayan implementado.
 
 He implementado un buscador para agilizar la busqueda en el mapa ,el buscador tiene la funcionalidad de mostrar los resultados buscados y haciendo click ir a la ubicación del sitio buscado.
 
-**URL 
-**URL 
+**URL // https://www.youtube.com/watch?v=4L0OEikBeME
+
+A partir del min 2:30 del video muestro la funcionalidad optativa
+
+**URL // https://www.youtube.com/watch?v=4L0OEikBeME
